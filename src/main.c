@@ -13,7 +13,7 @@
 #include "hal_stm_lvgl/stm32f429i_discovery.h"
 #include "lvgl/lvgl.h"
 #include "lvgl/demos/benchmark/lv_demo_benchmark.h"
-
+#include "hal_stm_lvgl/debug_usart.h"
 
 #include "hal_stm_lvgl/tft/tft.h"
 #include "hal_stm_lvgl/touchpad/touchpad.h"
@@ -36,20 +36,23 @@ int main(void)
 		HAL_Delay(50);
 	}
 
-	lv_init();
+	//lv_init();
 
-	tft_init();
-	touchpad_init();
+	//tft_init();
+	//touchpad_init();
 
 //	lv_example_scroll_3();
 //	lv_example_chart_7();
 
-	lv_demo_benchmark();
-
+	//lv_demo_benchmark();
+	debug_Uart_Init();
+	const char* what = "What\n";
 	while (1)
 	{
+		HAL_StatusTypeDef res = HAL_UART_Transmit_DMA(&huart1, (uint8_t*)what, strlen(what));
+		(void)res;
 		HAL_Delay(1);
-		lv_task_handler();
+		//lv_task_handler();
 	}
 }
 
