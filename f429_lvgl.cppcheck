@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1">
+    <builddir>f429_lvgl-cppcheck-build-dir</builddir>
+    <platform>arm32-wchar_t4.xml</platform>
+    <analyze-all-vs-configs>false</analyze-all-vs-configs>
+    <check-headers>true</check-headers>
+    <check-unused-templates>true</check-unused-templates>
+    <max-ctu-depth>2</max-ctu-depth>
+    <max-template-recursion>100</max-template-recursion>
+    <includedir>
+        <dir name="hal_stm_lvgl/"/>
+        <dir name="inc/"/>
+        <dir name="src/"/>
+        <dir name="startup/"/>
+        <dir name="lvgl/"/>
+    </includedir>
+    <paths>
+        <dir name="hal_stm_lvgl"/>
+        <dir name="startup"/>
+        <dir name="src"/>
+        <dir name="CMSIS"/>
+    </paths>
+    <addons>
+        <addon>misra</addon>
+    </addons>
+</project>

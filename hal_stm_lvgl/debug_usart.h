@@ -11,6 +11,6 @@
 #include "stm32f4xx.h"
 
 extern UART_HandleTypeDef huart1;
-extern void debug_Uart_Init(void);
+extern void Debug_Uart_Init(void);
 
 #endif /* DEBUG_USART_H_ */
