@@ -19,7 +19,6 @@
 #include "hal_stm_lvgl/touchpad/touchpad.h"
 
 static void SystemClock_Config(void);
-
 int main(void)
 {
 
@@ -45,11 +44,11 @@ int main(void)
 //	lv_example_chart_7();
 
 	//lv_demo_benchmark();
-	debug_Uart_Init();
-	const char* what = "What\n";
+	Debug_Uart_Init();
+	const uint8_t message[] = "Hello\n";
 	while (1)
 	{
-		HAL_StatusTypeDef res = HAL_UART_Transmit_DMA(&huart1, (uint8_t*)what, strlen(what));
+		HAL_StatusTypeDef res = Debug_Uart_Print(message, sizeof(message));
 		(void)res;
 		HAL_Delay(1);
 		//lv_task_handler();

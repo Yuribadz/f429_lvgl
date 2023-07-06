@@ -23,6 +23,18 @@
 UART_HandleTypeDef huart1;
 static DMA_HandleTypeDef hdma_usart1_rx;
 static DMA_HandleTypeDef hdma_usart1_tx;
+static uint8_t tx_buffer[TX_BUFFER_SIZE];
+static uint8_t rx_buffer[RX_BUFFER_SIZE];
+
+HAL_StatusTypeDef Debug_Uart_Print(const uint8_t msg[], size_t size) {
+	if (size > 4000UL) {
+		return HAL_ERROR;
+	} else {
+		memset(tx_buffer, 0U, TX_BUFFER_SIZE);
+		memcpy(tx_buffer, msg, size);
+		return HAL_UART_Transmit_DMA(&huart1, tx_buffer, size);
+	}
+}
 
 /**
  * @brief This function handles DMA2 stream2 global interrupt.
@@ -69,8 +81,7 @@ static void Error_Handler(void) {
 	}
 }
 
-static void RCC_Config(void)
-{
+static void RCC_Config(void) {
 	__HAL_RCC_USART1_CLK_ENABLE();
 	__HAL_RCC_DMA2_CLK_ENABLE();
 	__HAL_RCC_GPIOA_CLK_ENABLE();
@@ -154,7 +165,7 @@ static void Irq_Config(void) {
 	HAL_NVIC_EnableIRQ(USART1_IRQn);
 }
 
-void debug_Uart_Init(void) {
+void Debug_Uart_Init(void) {
 	Uart_Config();
 	if (HAL_UART_Init(&huart1) != HAL_OK) {
 		Error_Handler();
